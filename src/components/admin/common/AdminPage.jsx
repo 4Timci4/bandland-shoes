@@ -4,25 +4,32 @@ import { FaPlus } from 'react-icons/fa';
 function AdminPage({
   title,
   subtitle,
-  icon,
+  icon: Icon,
   children,
   onAddNew,
   isLoading,
 }) {
+  // Gelen 'Icon' prop'unun bir JSX elementi mi yoksa bir bileşen mi olduğunu kontrol et
+  const iconElement =
+    Icon && React.isValidElement(Icon) ? (
+      Icon
+    ) : Icon ? (
+      <Icon className="title-icon" />
+    ) : null;
+
   return (
     <div>
       <div className="admin-page-title">
         <h1>
-          {icon} {title}
+          {iconElement} {title}
         </h1>
         {subtitle && <p>{subtitle}</p>}
       </div>
 
       <div className="admin-card">
-        {onAddNew ? (
+        {onAddNew && (
           <div className="admin-card__header">
             <div className="admin-card__title-group">
-              {icon}
               <h2 className="admin-card__title">{title} Listesi</h2>
             </div>
             <button
@@ -33,9 +40,8 @@ function AdminPage({
               <FaPlus /> <span>Yeni Ekle</span>
             </button>
           </div>
-        ) : (
-          <div className="admin-card__content">{children}</div>
         )}
+        <div className="admin-card__content">{children}</div>
       </div>
     </div>
   );
