@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import {
+  createBrowserRouter,
+  RouterProvider
+} from 'react-router-dom';
 import App from './App.jsx';
 import Home from './pages/Home.jsx';
 import AboutPage from './pages/AboutPage.jsx';
@@ -20,7 +23,9 @@ import BlogListPage from './pages/Blog/BlogListPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
 import './index.css';
 
-const router = createBrowserRouter([
+// React Router future flags - v7 sürümüne hazırlık
+const router = createBrowserRouter(
+  [
   {
     path: '/',
     element: <App />,
@@ -101,7 +106,12 @@ const router = createBrowserRouter([
       },
     ],
   },
-]);
+],
+{
+  future: {
+    v7_startTransition: true
+  }
+});
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

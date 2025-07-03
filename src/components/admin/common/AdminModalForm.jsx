@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FaSave, FaTimes, FaSpinner } from 'react-icons/fa';
 import { storageService } from '../../../services/storageService';
-import { productService } from '../../../services/productService'; // Product service'i import et
+import { productService } from '../../../services/productService';
+import TipTapEditor from '../../common/TipTapEditor';
 
 function AdminModalForm({
   isOpen,
@@ -15,14 +16,15 @@ function AdminModalForm({
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
-  const [baseProduct, setBaseProduct] = useState(null); // Ana ürün state'i
+  const [baseProduct, setBaseProduct] = useState(null);
+  const editorRef = useRef(null);
 
   useEffect(() => {
     const initialFormData = initialData || {};
     setFormData(initialFormData);
-    setBaseProduct(null); // Modal her açıldığında sıfırla
-    if (initialFormData.image_url) {
-      setPreview(initialFormData.image_url);
+    setBaseProduct(null);
+    if (initialData && initialData.image_url) {
+      setPreview(initialData.image_url);
     } else {
       setPreview(null);
     }
@@ -33,33 +35,8 @@ function AdminModalForm({
     return null;
   }
 
-  const handleBaseSkuBlur = async (e) => {
-    const baseSku = e.target.value;
-    if (!baseSku) {
-      setFormData((prev) => ({ ...prev, name: '', description: '' }));
-      setBaseProduct(null);
-      return;
-    }
-
-    try {
-      const foundBaseProduct =
-        await productService.getBaseProductBySku(baseSku);
-      if (foundBaseProduct) {
-        setBaseProduct(foundBaseProduct);
-        setFormData((prev) => ({
-          ...prev,
-          name: foundBaseProduct.name,
-          description: foundBaseProduct.description || '',
-        }));
-      } else {
-        alert('Bu SKU ile bir ana ürün bulunamadı.');
-        setFormData((prev) => ({ ...prev, name: '', description: '' }));
-        setBaseProduct(null);
-      }
-    } catch (error) {
-      console.error('Ana ürün getirilirken hata:', error);
-      alert('Ana ürün getirilirken bir hata oluştu.');
-    }
+  const handleContentChange = (content) => {
+    setFormData((prev) => ({ ...prev, content }));
   };
 
   const handleChange = (e) => {
@@ -80,10 +57,38 @@ function AdminModalForm({
     }
   };
 
+  const handleBaseSkuBlur = async (e) => {
+    const baseSku = e.target.value;
+    if (!baseSku) {
+      setFormData((prev) => ({ ...prev, name: '', description: '' }));
+      setBaseProduct(null);
+      return;
+    }
+
+    try {
+      const foundBaseProduct = await productService.getBaseProductBySku(baseSku);
+      if (foundBaseProduct) {
+        setBaseProduct(foundBaseProduct);
+        setFormData((prev) => ({
+          ...prev,
+          name: foundBaseProduct.name,
+          description: foundBaseProduct.description || '',
+        }));
+      } else {
+        alert('Bu SKU ile bir ana ürün bulunamadı.');
+        setFormData((prev) => ({ ...prev, name: '', description: '' }));
+        setBaseProduct(null);
+      }
+    } catch (error) {
+      console.error('Ana ürün getirilirken hata:', error);
+      alert('Ana ürün getirilirken bir hata oluştu.');
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!baseProduct && !initialData) {
+    if (fields.some(f => f.name === 'base_sku') && !baseProduct && !initialData) {
       alert("Lütfen geçerli bir Ana Ürün SKU'su girerek bir ana ürün seçin.");
       return;
     }
@@ -97,7 +102,6 @@ function AdminModalForm({
     setIsUploading(true);
     let finalData = { ...formData };
 
-    // Sadece yeni ürün eklerken base_product_id'yi ekle. Düzenlemede bu bilgi zaten vardır.
     if (baseProduct && !initialData) {
       finalData.base_product_id = baseProduct.id;
     }
@@ -129,7 +133,15 @@ function AdminModalForm({
           {fields.map(({ name, label, type = 'text', ...props }) => (
             <div className="form-group" key={name}>
               <label htmlFor={name}>{label}</label>
-              {type === 'textarea' ? (
+              {name === 'content' ? (
+                <div className="tiptap-container" style={{ minHeight: '300px' }}>
+                  <TipTapEditor
+                    value={formData[name] || ''}
+                    onChange={handleContentChange}
+                    placeholder="İçerik yazın..."
+                  />
+                </div>
+              ) : type === 'textarea' ? (
                 <textarea
                   id={name}
                   name={name}

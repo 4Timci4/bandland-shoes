@@ -130,7 +130,7 @@
 /* Blog içerik alanı */
 .blog-list-content {
   padding: 0 5% 60px;
-  max-width: 1400px;
+  max-width: 1500px;
   margin: 0 auto;
 }
 
@@ -208,6 +208,8 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
 }
 
 .blog-item-title {
@@ -245,10 +247,10 @@
   margin-bottom: 15px;
   color: var(--light-text);
   line-height: 1.4;
-  flex-grow: 1;
   font-size: 0.85rem;
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   max-height: 3.6em;
@@ -266,6 +268,7 @@
   border-radius: 4px;
   transition: var(--transition);
   text-transform: uppercase;
+  margin-top: auto;
 }
 
 .blog-item-read-more:hover {
@@ -321,22 +324,22 @@
 
 @media (min-width: 768px) {
   .blog-list-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
   }
 }
 
 @media (min-width: 992px) {
   .blog-list-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
   }
 }
 
 @media (min-width: 1400px) {
   .blog-list-grid {
-    grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
   }
 }
 
