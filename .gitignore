@@ -20,6 +20,7 @@ pnpm-debug.log*
 # Editor directories and files
 .vscode
 .idea
+.roo
 *.suo
 *.ntvs*
 *.njsproj
