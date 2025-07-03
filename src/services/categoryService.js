@@ -87,4 +87,16 @@ export const categoryService = {
     if (error) throw error;
     return data;
   },
+
+  async getCategoryCount() {
+    const { count, error } = await supabase
+      .from('categories')
+      .select('*', { count: 'exact', head: true });
+      
+    if (error) {
+      console.error('Error fetching category count:', error);
+      throw error;
+    }
+    return count;
+  },
 };

@@ -4,7 +4,7 @@ import { FaPlus } from 'react-icons/fa';
 function AdminPage({
   title,
   subtitle,
-  icon: Icon,
+  icon,
   children,
   onAddNew,
   isLoading,
@@ -13,16 +13,16 @@ function AdminPage({
     <div>
       <div className="admin-page-title">
         <h1>
-          {Icon && <Icon className="title-icon" />} {title}
+          {icon} {title}
         </h1>
         {subtitle && <p>{subtitle}</p>}
       </div>
 
       <div className="admin-card">
-        {onAddNew && (
+        {onAddNew ? (
           <div className="admin-card__header">
             <div className="admin-card__title-group">
-              {Icon && <Icon className="admin-card__title-icon" />}
+              {icon}
               <h2 className="admin-card__title">{title} Listesi</h2>
             </div>
             <button
@@ -33,8 +33,9 @@ function AdminPage({
               <FaPlus /> <span>Yeni Ekle</span>
             </button>
           </div>
+        ) : (
+          <div className="admin-card__content">{children}</div>
         )}
-        {children}
       </div>
     </div>
   );
