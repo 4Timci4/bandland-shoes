@@ -15,6 +15,9 @@ import ViewContactSubmissions from './pages/Admin/ViewContactSubmissions.jsx';
 import ProductListPage from './pages/Products/ProductListPage.jsx';
 import ProductDetailPage from './pages/Products/ProductDetailPage.jsx';
 import ContactPage from './pages/ContactPage.jsx';
+import BlogDetailPage from './pages/Blog/BlogDetailPage.jsx';
+import BlogListPage from './pages/Blog/BlogListPage.jsx';
+import NotFoundPage from './pages/NotFoundPage.jsx';
 import './index.css';
 
 const router = createBrowserRouter([
@@ -29,6 +32,14 @@ const router = createBrowserRouter([
       {
         path: 'about',
         element: <AboutPage />,
+      },
+      {
+        path: '/blog',
+        element: <BlogListPage />,
+      },
+      {
+        path: '/blog/:id',
+        element: <BlogDetailPage />,
       },
       {
         path: '/category/:categoryName',
@@ -49,6 +60,10 @@ const router = createBrowserRouter([
       {
         path: '/contact',
         element: <ContactPage />,
+      },
+      {
+        path: '*',
+        element: <NotFoundPage />,
       },
     ],
   },

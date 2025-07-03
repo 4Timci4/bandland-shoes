@@ -78,7 +78,7 @@ function ProductDetailPage() {
         <nav className="breadcrumb">
           <Link to="/">Ana Sayfa</Link>
           <span>›</span>
-          <Link to={`/category/${productGroup.category.slug}`}>
+          <Link to={`/category/${productGroup.category.slug || 'kategori'}`}>
             {productGroup.category.name}
           </Link>
           <span>›</span>

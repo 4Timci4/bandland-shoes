@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { blogService } from '../../services/supabaseBlogService';
+import { Link } from 'react-router-dom';
+import { getPublishedBlogs } from '../../services/supabaseBlogService';
 import './Blog.css';
 
 const Blog = () => {
@@ -14,7 +15,7 @@ const Blog = () => {
   const loadBlogs = async () => {
     try {
       setIsLoading(true);
-      const data = await blogService.getPublished();
+      const data = await getPublishedBlogs();
       // En fazla 3 blog yazısı göster
       setBlogPosts(data.slice(0, 3));
       setError(null);
@@ -95,9 +96,9 @@ const Blog = () => {
                 <p className="blog-card__excerpt">
                   {truncateText(post.excerpt || post.content)}
                 </p>
-                <a href="#" className="blog-card__read-more">
+                <Link to={`/blog/${post.id}`} className="blog-card__read-more">
                   Devamını Oku
-                </a>
+                </Link>
               </div>
             </div>
           ))}

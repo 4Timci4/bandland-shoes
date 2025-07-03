@@ -114,6 +114,15 @@ function Header() {
               </li>
               <li>
                 <NavLink
+                  to="/blog"
+                  onClick={closeMenu}
+                  className={({ isActive }) => (isActive ? 'active' : '')}
+                >
+                  Blog
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
                   to="/contact"
                   onClick={closeMenu}
                   className={({ isActive }) => (isActive ? 'active' : '')}
@@ -163,6 +172,11 @@ function Header() {
               <li>
                 <NavLink to="/about" onClick={toggleMenu}>
                   Hakkımızda
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/blog" onClick={toggleMenu}>
+                  Blog
                 </NavLink>
               </li>
               <li>

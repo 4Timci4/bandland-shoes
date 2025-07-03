@@ -142,7 +142,6 @@ export const productService = {
 
     if (variantsError) throw variantsError;
 
-    // Kategori bilgisini doğrudan ana sorgudaki 'sub_categories' üzerinden al
     const categoryInfo = data.sub_categories?.categories;
 
     const groupedProduct = {
@@ -151,9 +150,11 @@ export const productService = {
       description: data.base_products.description,
       base_sku: data.base_products.base_sku,
       variants: variantsData.map(mapProductToFE),
-      // Slug yoksa name'i slug olarak da kullan
       category: categoryInfo
-        ? { name: categoryInfo.name, slug: categoryInfo.name?.toLowerCase().replace(/\s+/g, '-') || '' }
+        ? {
+            name: categoryInfo.name,
+            slug: categoryInfo.name?.toLowerCase().replace(/\s+/g, '-') || 'kategori',
+          }
         : { name: 'Kategorisiz', slug: 'kategorisiz' },
     };
 
