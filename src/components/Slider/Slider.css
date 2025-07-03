@@ -1,0 +1,144 @@
+.swiper_container {
+  width: 100%;
+  height: 90vh;
+  position: relative;
+}
+
+.swiper-slide {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Sığdır, kırpma */
+}
+
+.swiper-pagination {
+  position: absolute !important;
+  bottom: 30px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: auto !important;
+}
+
+.swiper-pagination .swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  opacity: 1;
+  transition: background-color 0.3s ease;
+}
+
+.swiper-pagination .swiper-pagination-bullet-active {
+  background-color: var(--neutral-white);
+}
+
+/* Slide content */
+.slide-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.slide-content img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Sığdır, kırpma */
+}
+
+/* Slide overlay for text */
+.slide-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0.3) 50%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.slide-text {
+  color: var(--neutral-white);
+  max-width: 800px;
+  padding: 2rem;
+}
+
+.slide-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.slide-description {
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1.6;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Loading state */
+.slider-loading {
+  width: 100%;
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--neutral-light);
+}
+
+.slider-loading-content {
+  text-align: center;
+  color: var(--neutral-dark);
+}
+
+/* Empty state */
+.slider-empty {
+  width: 100%;
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--neutral-light);
+}
+
+.slider-empty-content {
+  text-align: center;
+  color: var(--neutral-dark);
+  font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .slide-title {
+    font-size: 2rem;
+  }
+  
+  .slide-description {
+    font-size: 1rem;
+  }
+  
+  .slide-text {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .slide-title {
+    font-size: 1.5rem;
+  }
+  
+  .slide-description {
+    font-size: 0.875rem;
+  }
+}

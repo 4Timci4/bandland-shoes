@@ -1,0 +1,38 @@
+/* =================================================================
+   ADMIN LAYOUT
+================================================================= */
+
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--neutral-light);
+}
+
+.admin-layout__content {
+  flex: 1;
+  margin-left: 250px;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.admin-layout__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .admin-layout {
+    flex-direction: column;
+  }
+  
+  .admin-layout__content {
+    margin-left: 0;
+    padding: 1rem;
+  }
+  
+  .admin-layout__container {
+    padding: 1rem;
+    min-height: auto;
+  }
+}

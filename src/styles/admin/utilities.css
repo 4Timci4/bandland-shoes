@@ -1,0 +1,22 @@
+/* =================================================================
+   UTILITIES
+================================================================= */
+
+.admin-loading,
+.admin-empty {
+  text-align: center;
+  padding: 3rem;
+  color: var(--neutral-dark);
+}
+
+.admin-alert {
+  padding: 1rem;
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.admin-alert-error {
+  background-color: #ffebee;
+  color: #b71c1c;
+  border: 1px solid #ffcdd2;
+}
