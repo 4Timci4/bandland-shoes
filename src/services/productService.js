@@ -115,19 +115,35 @@ export const productService = {
 
   async getById(id) {
     const { data, error } = await supabase
-      .from(from)
-      .select('*, colors(name, hex_code), base_products(*)')
+      .from('products')
+      .select(
+        `
+        *,
+        colors(name, hex_code),
+        base_products(*),
+        sub_categories(
+          name,
+          categories(name)
+        )
+      `
+      )
       .eq('id', id)
       .single();
-    if (error) throw error;
 
-    // Bu ürünün diğer varyantlarını da getir
+    if (error) {
+      console.error("Supabase 'getById' fetch error:", error);
+      throw error;
+    }
+
     const { data: variantsData, error: variantsError } = await supabase
-      .from(from)
+      .from('products')
       .select('*, colors(name, hex_code)')
       .eq('base_product_id', data.base_product_id);
 
     if (variantsError) throw variantsError;
+
+    // Kategori bilgisini doğrudan ana sorgudaki 'sub_categories' üzerinden al
+    const categoryInfo = data.sub_categories?.categories;
 
     const groupedProduct = {
       base_product_id: data.base_product_id,
@@ -135,6 +151,10 @@ export const productService = {
       description: data.base_products.description,
       base_sku: data.base_products.base_sku,
       variants: variantsData.map(mapProductToFE),
+      // Slug yoksa name'i slug olarak da kullan
+      category: categoryInfo
+        ? { name: categoryInfo.name, slug: categoryInfo.name?.toLowerCase().replace(/\s+/g, '-') || '' }
+        : { name: 'Kategorisiz', slug: 'kategorisiz' },
     };
 
     return groupedProduct;
