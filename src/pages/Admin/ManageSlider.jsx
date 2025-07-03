@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaImages, FaBlog } from 'react-icons/fa';
+import { FaImages } from 'react-icons/fa';
 import { useCrud } from '../../hooks/useCrud';
 import { sliderService } from '../../services/supabaseSliderService';
 import AdminPage from '../../components/admin/common/AdminPage';
@@ -23,8 +23,9 @@ const ManageSlider = () => {
   } = useCrud(sliderService, {}, 'Slider');
 
   const handleMove = async (id, direction) => {
-    const currentIndex = slides.findIndex(s => s.id === id);
-    const targetIndex = direction === 'up' ? currentIndex - 1 : currentIndex + 1;
+    const currentIndex = slides.findIndex((s) => s.id === id);
+    const targetIndex =
+      direction === 'up' ? currentIndex - 1 : currentIndex + 1;
 
     if (targetIndex < 0 || targetIndex >= slides.length) {
       return;
@@ -34,12 +35,18 @@ const ManageSlider = () => {
     const targetItem = slides[targetIndex];
 
     try {
-      await sliderService.update(currentItem.id, { ...currentItem, order: targetItem.order });
-      await sliderService.update(targetItem.id, { ...targetItem, order: currentItem.order });
+      await sliderService.update(currentItem.id, {
+        ...currentItem,
+        order: targetItem.order,
+      });
+      await sliderService.update(targetItem.id, {
+        ...targetItem,
+        order: currentItem.order,
+      });
       await loadItems();
     } catch (err) {
-        // setError'u burada kullanabilirsiniz
-        console.error('Sıralama hatası:', err);
+      // setError'u burada kullanabilirsiniz
+      console.error('Sıralama hatası:', err);
     }
   };
 
@@ -47,14 +54,22 @@ const ManageSlider = () => {
     {
       key: 'image_url',
       header: 'Görsel',
-      render: (item) => <img src={item.image_url} alt={`Slider ${item.id}`} className="slider-thumbnail" />,
+      render: (item) => (
+        <img
+          src={item.image_url}
+          alt={`Slider ${item.id}`}
+          className="slider-thumbnail"
+        />
+      ),
     },
     { key: 'order', header: 'Sıra', className: 'col-order' },
     {
       key: 'is_active',
       header: 'Durum',
       render: (item) => (
-        <span className={`status-badge ${item.is_active ? 'active' : 'inactive'}`}>
+        <span
+          className={`status-badge ${item.is_active ? 'active' : 'inactive'}`}
+        >
           {item.is_active ? 'Aktif' : 'Pasif'}
         </span>
       ),

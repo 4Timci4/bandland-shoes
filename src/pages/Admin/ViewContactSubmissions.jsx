@@ -3,7 +3,6 @@ import { FaEnvelopeOpenText } from 'react-icons/fa';
 import { contactService } from '../../services/contactService';
 import AdminPage from '../../components/admin/common/AdminPage';
 import AdminTable from '../../components/admin/common/AdminTable';
-import AdminModal from '../../components/admin/common/AdminModalForm'; // Genel bir modal kullanabiliriz.
 import { formatDate } from '../../utils/date';
 
 function ViewContactSubmissions() {
@@ -36,8 +35,10 @@ function ViewContactSubmissions() {
     if (!message.is_read) {
       await contactService.markAsRead(message.id);
       // Mesajı lokal state'de de güncelle
-      setSubmissions(prev => 
-        prev.map(sub => sub.id === message.id ? { ...sub, is_read: true } : sub)
+      setSubmissions((prev) =>
+        prev.map((sub) =>
+          sub.id === message.id ? { ...sub, is_read: true } : sub
+        )
       );
     }
   };
@@ -46,7 +47,7 @@ function ViewContactSubmissions() {
     if (window.confirm('Bu mesajı silmek istediğinizden emin misiniz?')) {
       try {
         await contactService.deleteSubmission(id);
-        setSubmissions(prev => prev.filter(sub => sub.id !== id));
+        setSubmissions((prev) => prev.filter((sub) => sub.id !== id));
       } catch (err) {
         alert('Mesaj silinirken bir hata oluştu.');
       }
@@ -54,27 +55,36 @@ function ViewContactSubmissions() {
   };
 
   const columns = [
-    { 
-      key: 'is_read', 
-      header: 'Durum', 
+    {
+      key: 'is_read',
+      header: 'Durum',
       render: (item) => (
         <span className={`status-badge ${item.is_read ? 'read' : 'unread'}`}>
           {item.is_read ? 'Okundu' : 'Yeni'}
         </span>
-      )
+      ),
     },
     { key: 'name', header: 'Gönderen' },
     { key: 'email', header: 'Email' },
     { key: 'subject', header: 'Konu' },
-    { key: 'submitted_at', header: 'Tarih', render: (item) => formatDate(item.submitted_at) },
+    {
+      key: 'submitted_at',
+      header: 'Tarih',
+      render: (item) => formatDate(item.submitted_at),
+    },
   ];
-  
+
   // Custom action butonu ekliyoruz
-   const customActions = (item) => (
-     <>
-       <button className="admin-btn admin-btn-action" onClick={() => handleReadMessage(item)}>Oku</button>
-     </>
-   );
+  const customActions = (item) => (
+    <>
+      <button
+        className="admin-btn admin-btn-action"
+        onClick={() => handleReadMessage(item)}
+      >
+        Oku
+      </button>
+    </>
+  );
 
   return (
     <AdminPage
@@ -97,16 +107,25 @@ function ViewContactSubmissions() {
         <div className="admin-modal">
           <div className="admin-modal__content">
             <div className="admin-modal__header">
-                <h2>{selectedMessage.subject || 'Konusuz Mesaj'}</h2>
-                <button className="admin-modal__close" onClick={() => setIsModalOpen(false)}>&times;</button>
+              <h2>{selectedMessage.subject || 'Konusuz Mesaj'}</h2>
+              <button
+                className="admin-modal__close"
+                onClick={() => setIsModalOpen(false)}
+              >
+                &times;
+              </button>
             </div>
             <div className="message-modal-body">
-                <p><strong>Gönderen:</strong> {selectedMessage.name} ({selectedMessage.email})</p>
-                <p><strong>Tarih:</strong> {formatDate(selectedMessage.submitted_at)}</p>
-                <hr />
-                <div className="message-content">
-                    {selectedMessage.message}
-                </div>
+              <p>
+                <strong>Gönderen:</strong> {selectedMessage.name} (
+                {selectedMessage.email})
+              </p>
+              <p>
+                <strong>Tarih:</strong>{' '}
+                {formatDate(selectedMessage.submitted_at)}
+              </p>
+              <hr />
+              <div className="message-content">{selectedMessage.message}</div>
             </div>
           </div>
         </div>

@@ -3,65 +3,78 @@
 ================================================================= */
 
 .product-filters {
-    display: flex;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-    padding: 1rem;
-    background-color: #fafafa;
-    border-radius: .5rem;
-    border: 1px solid var(--neutral-light);
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  padding: 1rem;
+  background-color: #fafafa;
+  border-radius: 0.5rem;
+  border: 1px solid var(--neutral-light);
 }
 
 .filter-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex-grow: 1;
 }
 
 .filter-group label {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--neutral-dark);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--neutral-dark);
 }
 
 .filter-group select,
 .filter-group .search-input input {
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 0.25rem;
-    background-color: var(--neutral-white);
-    font-size: 1rem;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 0.25rem;
+  background-color: var(--neutral-white);
+  font-size: 1rem;
 }
 
 .filter-group .search-input {
-    /* position: relative;  - Flexbox için bu artık gerekli değil */
-    display: flex;
-    align-items: center;
-    border: 1px solid #ddd;
-    border-radius: 0.25rem;
-    background-color: var(--neutral-white);
-    padding: 0 0.75rem; /* Sağ ve sol padding'i konteynere veriyoruz */
+  /* position: relative;  - Flexbox için bu artık gerekli değil */
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 0.25rem;
+  background-color: var(--neutral-white);
+  padding: 0 0.75rem; /* Sağ ve sol padding'i konteynere veriyoruz */
 }
 
 .filter-group .search-input svg {
-    /* Artık absolute konumlandırmaya gerek yok */
-    color: #999;
-    flex-shrink: 0; /* İkonun küçülmesini engelle */
-    margin-right: 0.5rem; /* İkon ve input arasına boşluk */
+  /* Artık absolute konumlandırmaya gerek yok */
+  color: #999;
+  flex-shrink: 0; /* İkonun küçülmesini engelle */
+  margin-right: 0.5rem; /* İkon ve input arasına boşluk */
 }
 
 .filter-group .search-input input {
-    padding-left: 0; /* Sol padding'i sıfırlıyoruz */
-    width: 100%;
-    flex-grow: 1; /* Kalan boşluğu doldurur */
-    border: none; /* Kenarlığı parent'a verdiğimiz için kaldırıyoruz */
-    outline: none; /* Focus outline'ı kaldırıyoruz */
-    background-color: transparent; /* Parent'ın arka planını kullan */
+  padding-left: 0; /* Sol padding'i sıfırlıyoruz */
+  width: 100%;
+  flex-grow: 1; /* Kalan boşluğu doldurur */
+  border: none; /* Kenarlığı parent'a verdiğimiz için kaldırıyoruz */
+  outline: none; /* Focus outline'ı kaldırıyoruz */
+  background-color: transparent; /* Parent'ın arka planını kullan */
 }
 
-.admin-table .col-sku { width: 15%; min-width: 120px; }
-.admin-table .col-name { width: 30%; min-width: 200px; }
-.admin-table .col-price { width: 10%; min-width: 90px; }
-.admin-table .col-stock { width: 10%; min-width: 80px; text-align: center; }
+.admin-table .col-sku {
+  width: 15%;
+  min-width: 120px;
+}
+.admin-table .col-name {
+  width: 30%;
+  min-width: 200px;
+}
+.admin-table .col-price {
+  width: 10%;
+  min-width: 90px;
+}
+.admin-table .col-stock {
+  width: 10%;
+  min-width: 80px;
+  text-align: center;
+}

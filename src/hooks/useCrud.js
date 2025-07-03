@@ -55,10 +55,14 @@ export function useCrud(service, initialFormState, resourceName) {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm(`Bu ${resourceName} öğesini silmek istediğinizden emin misiniz?`)) {
+    if (
+      window.confirm(
+        `Bu ${resourceName} öğesini silmek istediğinizden emin misiniz?`
+      )
+    ) {
       try {
         // Silmeden önce item'ı bulup resim URL'ini al
-        const itemToDelete = items.find(item => item.id === id);
+        const itemToDelete = items.find((item) => item.id === id);
         const imageUrlToDelete = itemToDelete?.image_url;
 
         // 1. Veritabanından kaydı sil
@@ -77,16 +81,16 @@ export function useCrud(service, initialFormState, resourceName) {
       }
     }
   };
-  
+
   const handleStatusToggle = async (item) => {
     try {
-        const key = item.isActive !== undefined ? 'isActive' : 'isPublished';
-        const newStatus = !item[key];
-        await service.update(item.id, { ...item, [key]: newStatus });
-        await loadItems();
+      const key = item.isActive !== undefined ? 'isActive' : 'isPublished';
+      const newStatus = !item[key];
+      await service.update(item.id, { ...item, [key]: newStatus });
+      await loadItems();
     } catch (err) {
-        setError(`Durum güncellenirken bir hata oluştu: ${err.message}`);
-        console.error('Durum güncelleme hatası:', err);
+      setError(`Durum güncellenirken bir hata oluştu: ${err.message}`);
+      console.error('Durum güncelleme hatası:', err);
     }
   };
 
@@ -101,6 +105,6 @@ export function useCrud(service, initialFormState, resourceName) {
     handleSubmit,
     handleDelete,
     handleStatusToggle,
-    loadItems
+    loadItems,
   };
 }

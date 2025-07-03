@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { productService } from '../../services/productService';
@@ -11,10 +11,9 @@ function useQuery() {
 }
 
 function ProductDetailPage() {
-  const { slug } = useParams();
   const query = useQuery();
   const productId = query.get('id'); // Tıklanan varyantın ID'si
-  
+
   const [productGroup, setProductGroup] = useState(null);
   const [activeVariant, setActiveVariant] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -24,22 +23,27 @@ function ProductDetailPage() {
     async function fetchProductData() {
       if (!productId) {
         setLoading(false);
-        setError('Ürün ID\'si bulunamadı.');
+        setError("Ürün ID'si bulunamadı.");
         return;
       }
-      
+
       try {
         setLoading(true);
         // Servisten artık ana ürün ve tüm varyantları geliyor
         const fetchedProductGroup = await productService.getById(productId);
         setProductGroup(fetchedProductGroup);
         // Başlangıçta aktif olan varyantı URL'den gelen ID ile belirle
-        const initialVariant = fetchedProductGroup.variants.find(v => v.id === parseInt(productId, 10));
+        const initialVariant = fetchedProductGroup.variants.find(
+          (v) => v.id === parseInt(productId, 10)
+        );
         setActiveVariant(initialVariant || fetchedProductGroup.variants[0]);
         setError(null);
       } catch (err) {
         setError('Ürün yüklenirken bir hata oluştu.');
-        console.error(`Error fetching product group for variant ID ${productId}:`, err);
+        console.error(
+          `Error fetching product group for variant ID ${productId}:`,
+          err
+        );
       } finally {
         setLoading(false);
       }
@@ -50,7 +54,8 @@ function ProductDetailPage() {
 
   if (loading) return <div className="detail-page-message">Yükleniyor...</div>;
   if (error) return <div className="detail-page-message error">{error}</div>;
-  if (!productGroup || !activeVariant) return <div className="detail-page-message">Ürün bulunamadı.</div>;
+  if (!productGroup || !activeVariant)
+    return <div className="detail-page-message">Ürün bulunamadı.</div>;
 
   return (
     <div className="product-detail-page">
@@ -59,7 +64,10 @@ function ProductDetailPage() {
           <LazyLoadImage
             key={activeVariant.id} // Renk değişince resmin güncellenmesi için
             alt={productGroup.name}
-            src={activeVariant.imageUrl || 'https://via.placeholder.com/600x600?text=No+Image'}
+            src={
+              activeVariant.imageUrl ||
+              'https://via.placeholder.com/600x600?text=No+Image'
+            }
             effect="blur"
             wrapperClassName="product-detail-image-wrapper"
             className="product-detail-image"
@@ -68,11 +76,13 @@ function ProductDetailPage() {
         <div className="product-info-section">
           <h1 className="product-title">{productGroup.name}</h1>
           <p className="product-price">₺{activeVariant.price}</p>
-          
+
           <div className="variant-selection">
-            <span className="selection-label">Renk: <strong>{activeVariant.color_name}</strong></span>
+            <span className="selection-label">
+              Renk: <strong>{activeVariant.color_name}</strong>
+            </span>
             <div className="color-options">
-              {productGroup.variants.map(variant => (
+              {productGroup.variants.map((variant) => (
                 <div
                   key={variant.id}
                   className={`color-option-wrapper ${activeVariant.id === variant.id ? 'active' : ''}`}

@@ -25,7 +25,13 @@ const ManageBlog = () => {
     {
       key: 'image_url',
       header: 'Görsel',
-      render: (item) => <img src={item.image_url} alt={item.title} className="slider-thumbnail" />,
+      render: (item) => (
+        <img
+          src={item.image_url}
+          alt={item.title}
+          className="slider-thumbnail"
+        />
+      ),
     },
     {
       key: 'title',
@@ -35,7 +41,9 @@ const ManageBlog = () => {
       key: 'is_published',
       header: 'Durum',
       render: (item) => (
-        <span className={`status-badge ${item.is_published ? 'active' : 'inactive'}`}>
+        <span
+          className={`status-badge ${item.is_published ? 'active' : 'inactive'}`}
+        >
           {item.is_published ? 'Yayında' : 'Taslak'}
         </span>
       ),
@@ -50,7 +58,13 @@ const ManageBlog = () => {
   const formFields = [
     { name: 'title', label: 'Başlık', required: true },
     { name: 'excerpt', label: 'Özet', type: 'textarea', rows: 3 },
-    { name: 'content', label: 'İçerik', type: 'textarea', rows: 10, required: true },
+    {
+      name: 'content',
+      label: 'İçerik',
+      type: 'textarea',
+      rows: 10,
+      required: true,
+    },
     { name: 'image_url', label: 'Görsel', type: 'file', required: true },
     { name: 'is_published', label: 'Yayınla', type: 'checkbox' },
   ];

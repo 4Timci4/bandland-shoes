@@ -13,7 +13,6 @@ import './Slider.css';
 function Slider() {
   const [slides, setSlides] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     loadSlides();
@@ -24,9 +23,7 @@ function Slider() {
       setIsLoading(true);
       const data = await sliderService.getActive();
       setSlides(data);
-      setError(null);
     } catch (err) {
-      setError('Slider verileri yüklenirken hata oluştu. Lütfen daha sonra tekrar deneyin.');
       console.error('Slider yükleme hatası:', err);
       setSlides([]); // Hata durumunda slider listesini boşalt
     } finally {
@@ -73,10 +70,7 @@ function Slider() {
     >
       {slides.map((slide) => (
         <SwiperSlide key={slide.id}>
-            <img
-              src={slide.imageUrl}
-              alt={`Slider ${slide.id}`}
-            />
+          <img src={slide.imageUrl} alt={`Slider ${slide.id}`} />
         </SwiperSlide>
       ))}
       <div className="swiper-pagination"></div>

@@ -10,7 +10,10 @@ const mapColorToFE = (color) => ({
 
 export const colorService = {
   async getAll() {
-    const { data, error } = await supabase.from(from).select('*').order('name', { ascending: true });
+    const { data, error } = await supabase
+      .from(from)
+      .select('*')
+      .order('name', { ascending: true });
     if (error) throw error;
     return data.map(mapColorToFE);
   },

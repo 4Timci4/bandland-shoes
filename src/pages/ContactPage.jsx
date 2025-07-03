@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
-import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaPaperPlane } from 'react-icons/fa';
+import {
+  FaMapMarkerAlt,
+  FaPhoneAlt,
+  FaEnvelope,
+  FaPaperPlane,
+} from 'react-icons/fa';
 import { contactService } from '../services/contactService';
 import '../styles/ContactPage.css';
 
@@ -10,11 +15,15 @@ function ContactPage() {
     subject: '',
     message: '',
   });
-  const [status, setStatus] = useState({ sending: false, sent: false, error: null });
+  const [status, setStatus] = useState({
+    sending: false,
+    sent: false,
+    error: null,
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
@@ -25,7 +34,11 @@ function ContactPage() {
       setStatus({ sending: false, sent: true, error: null });
       setFormData({ name: '', email: '', subject: '', message: '' }); // Formu sıfırla
     } catch (error) {
-      setStatus({ sending: false, sent: false, error: 'Mesaj gönderilirken bir hata oluştu. Lütfen tekrar deneyin.' });
+      setStatus({
+        sending: false,
+        sent: false,
+        error: 'Mesaj gönderilirken bir hata oluştu. Lütfen tekrar deneyin.',
+      });
     }
   };
 
@@ -34,7 +47,10 @@ function ContactPage() {
       <div className="contact-container">
         <div className="contact-info-section">
           <h2>Bize Ulaşın</h2>
-          <p className="info-subtext">Sorularınız, önerileriniz veya işbirliği talepleriniz için bize aşağıdaki kanallardan ulaşabilirsiniz.</p>
+          <p className="info-subtext">
+            Sorularınız, önerileriniz veya işbirliği talepleriniz için bize
+            aşağıdaki kanallardan ulaşabilirsiniz.
+          </p>
           <div className="info-item">
             <FaMapMarkerAlt className="info-icon" />
             <div>
@@ -74,25 +90,62 @@ function ContactPage() {
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="name">Adınız Soyadınız</label>
-              <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
             </div>
             <div className="form-group">
               <label htmlFor="email">Email Adresiniz</label>
-              <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
             </div>
             <div className="form-group">
               <label htmlFor="subject">Konu</label>
-              <input type="text" id="subject" name="subject" value={formData.subject} onChange={handleChange} />
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                value={formData.subject}
+                onChange={handleChange}
+              />
             </div>
             <div className="form-group">
               <label htmlFor="message">Mesajınız</label>
-              <textarea id="message" name="message" rows="6" value={formData.message} onChange={handleChange} required></textarea>
+              <textarea
+                id="message"
+                name="message"
+                rows="6"
+                value={formData.message}
+                onChange={handleChange}
+                required
+              ></textarea>
             </div>
-            <button type="submit" className="submit-btn" disabled={status.sending}>
+            <button
+              type="submit"
+              className="submit-btn"
+              disabled={status.sending}
+            >
               <FaPaperPlane /> {status.sending ? 'Gönderiliyor...' : 'Gönder'}
             </button>
-            {status.sent && <p className="status-message success">Mesajınız başarıyla gönderildi. Teşekkür ederiz!</p>}
-            {status.error && <p className="status-message error">{status.error}</p>}
+            {status.sent && (
+              <p className="status-message success">
+                Mesajınız başarıyla gönderildi. Teşekkür ederiz!
+              </p>
+            )}
+            {status.error && (
+              <p className="status-message error">{status.error}</p>
+            )}
           </form>
         </div>
       </div>

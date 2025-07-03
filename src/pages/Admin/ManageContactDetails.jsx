@@ -27,7 +27,7 @@ function ManageContactDetails() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setDetails(prev => ({ ...prev, [name]: value }));
+    setDetails((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
@@ -57,22 +57,52 @@ function ManageContactDetails() {
         <form onSubmit={handleSubmit} className="admin-card">
           <div className="form-group">
             <label htmlFor="address">Adres</label>
-            <textarea id="address" name="address" value={details.address || ''} onChange={handleChange} rows="3" />
+            <textarea
+              id="address"
+              name="address"
+              value={details.address || ''}
+              onChange={handleChange}
+              rows="3"
+            />
           </div>
           <div className="form-group">
             <label htmlFor="phone">Telefon</label>
-            <input type="text" id="phone" name="phone" value={details.phone || ''} onChange={handleChange} />
+            <input
+              type="text"
+              id="phone"
+              name="phone"
+              value={details.phone || ''}
+              onChange={handleChange}
+            />
           </div>
           <div className="form-group">
             <label htmlFor="email">Email</label>
-            <input type="email" id="email" name="email" value={details.email || ''} onChange={handleChange} />
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={details.email || ''}
+              onChange={handleChange}
+            />
           </div>
           <div className="form-group">
-            <label htmlFor="map_embed_url">Google Harita Gömme (Embed) URL</label>
-            <textarea id="map_embed_url" name="map_embed_url" value={details.map_embed_url || ''} onChange={handleChange} rows="5" />
+            <label htmlFor="map_embed_url">
+              Google Harita Gömme (Embed) URL
+            </label>
+            <textarea
+              id="map_embed_url"
+              name="map_embed_url"
+              value={details.map_embed_url || ''}
+              onChange={handleChange}
+              rows="5"
+            />
           </div>
           <div className="form-actions">
-            <button type="submit" className="admin-btn admin-btn-primary" disabled={isSaving}>
+            <button
+              type="submit"
+              className="admin-btn admin-btn-primary"
+              disabled={isSaving}
+            >
               {isSaving ? <FaSpinner className="spinner" /> : <FaSave />}
               {isSaving ? 'Kaydediliyor...' : 'Değişiklikleri Kaydet'}
             </button>

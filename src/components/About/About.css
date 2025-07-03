@@ -30,7 +30,10 @@
    HERO SECTION
 ================================================================= */
 .about-hero {
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1549298916-b41d501d3772?q=80&w=2012&auto=format&fit=crop') no-repeat center center/cover;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('https://images.unsplash.com/photo-1549298916-b41d501d3772?q=80&w=2012&auto=format&fit=crop')
+      no-repeat center center/cover;
   padding: 6rem 0;
   text-align: center;
   color: var(--neutral-white);
@@ -40,7 +43,7 @@
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   color: white;
 }
 
@@ -115,7 +118,9 @@
   text-align: center;
   border-radius: 1rem;
   box-shadow: var(--shadow-md);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .value-card:hover {
@@ -139,7 +144,6 @@
   line-height: 1.7;
   color: var(--neutral-dark);
 }
-
 
 /* =================================================================
    RESPONSIVE

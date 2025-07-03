@@ -28,11 +28,10 @@ function Pagination({ currentPage, totalItems, itemsPerPage, onPageChange }) {
     pageNumbers.push(i);
   }
 
-
   return (
     <nav className="pagination-container">
-      <button 
-        onClick={handlePrevious} 
+      <button
+        onClick={handlePrevious}
         disabled={currentPage === 1}
         className="pagination-btn"
       >
@@ -42,9 +41,9 @@ function Pagination({ currentPage, totalItems, itemsPerPage, onPageChange }) {
 
       <ul className="pagination-list">
         {/* Daha karmaşık sayfalama mantığı buraya eklenebilir */}
-        {pageNumbers.map(number => (
+        {pageNumbers.map((number) => (
           <li key={number}>
-            <button 
+            <button
               onClick={() => onPageChange(number)}
               className={`pagination-item ${currentPage === number ? 'active' : ''}`}
             >
@@ -54,8 +53,8 @@ function Pagination({ currentPage, totalItems, itemsPerPage, onPageChange }) {
         ))}
       </ul>
 
-      <button 
-        onClick={handleNext} 
+      <button
+        onClick={handleNext}
         disabled={currentPage === totalPages}
         className="pagination-btn"
       >

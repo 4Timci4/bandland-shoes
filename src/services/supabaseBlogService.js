@@ -1,4 +1,4 @@
-import { supabase } from '../lib/supabase'
+import { supabase } from '../lib/supabase';
 
 // Tüm blog yazılarını getir
 export const getAllBlogs = async () => {
@@ -6,15 +6,15 @@ export const getAllBlogs = async () => {
     const { data, error } = await supabase
       .from('blogs')
       .select('*')
-      .order('created_at', { ascending: false })
+      .order('created_at', { ascending: false });
 
-    if (error) throw error
+    if (error) throw error;
     return data;
   } catch (error) {
-    console.error('Blog verileri alınırken hata oluştu:', error)
-    throw error
+    console.error('Blog verileri alınırken hata oluştu:', error);
+    throw error;
   }
-}
+};
 
 // Belirli bir blog yazısını getir
 export const getBlogById = async (id) => {
@@ -23,9 +23,9 @@ export const getBlogById = async (id) => {
       .from('blogs')
       .select('*')
       .eq('id', id)
-      .single()
+      .single();
 
-    if (error) throw error
+    if (error) throw error;
     // Frontend için alan adlarını dönüştür
     return {
       id: data.id,
@@ -35,13 +35,13 @@ export const getBlogById = async (id) => {
       imageUrl: data.image_url,
       isPublished: data.is_published,
       createdAt: data.created_at,
-      updatedAt: data.updated_at
-    }
+      updatedAt: data.updated_at,
+    };
   } catch (error) {
-    console.error('Blog verisi alınırken hata oluştu:', error)
-    throw error
+    console.error('Blog verisi alınırken hata oluştu:', error);
+    throw error;
   }
-}
+};
 
 // Yeni blog yazısı ekle
 export const createBlog = async (blogData) => {
@@ -51,10 +51,10 @@ export const createBlog = async (blogData) => {
       .from('blogs')
       .insert([blogData])
       .select()
-      .single()
+      .single();
 
-    if (error) throw error
-    
+    if (error) throw error;
+
     // Frontend için alan adlarını dönüştür
     return {
       id: data.id,
@@ -64,13 +64,13 @@ export const createBlog = async (blogData) => {
       imageUrl: data.image_url,
       isPublished: data.is_published,
       createdAt: data.created_at,
-      updatedAt: data.updated_at
-    }
+      updatedAt: data.updated_at,
+    };
   } catch (error) {
-    console.error('Blog eklenirken hata oluştu:', error)
-    throw error
+    console.error('Blog eklenirken hata oluştu:', error);
+    throw error;
   }
-}
+};
 
 // Blog yazısını güncelle
 export const updateBlog = async (id, blogData) => {
@@ -81,10 +81,10 @@ export const updateBlog = async (id, blogData) => {
       .update(blogData)
       .eq('id', id)
       .select()
-      .single()
+      .single();
 
-    if (error) throw error
-    
+    if (error) throw error;
+
     // Frontend için alan adlarını dönüştür
     return {
       id: data.id,
@@ -94,29 +94,26 @@ export const updateBlog = async (id, blogData) => {
       imageUrl: data.image_url,
       isPublished: data.is_published,
       createdAt: data.created_at,
-      updatedAt: data.updated_at
-    }
+      updatedAt: data.updated_at,
+    };
   } catch (error) {
-    console.error('Blog güncellenirken hata oluştu:', error)
-    throw error
+    console.error('Blog güncellenirken hata oluştu:', error);
+    throw error;
   }
-}
+};
 
 // Blog yazısını sil
 export const deleteBlog = async (id) => {
   try {
-    const { error } = await supabase
-      .from('blogs')
-      .delete()
-      .eq('id', id)
+    const { error } = await supabase.from('blogs').delete().eq('id', id);
 
-    if (error) throw error
-    return { success: true }
+    if (error) throw error;
+    return { success: true };
   } catch (error) {
-    console.error('Blog silinirken hata oluştu:', error)
-    throw error
+    console.error('Blog silinirken hata oluştu:', error);
+    throw error;
   }
-}
+};
 
 // Yayınlanmış blog yazılarını getir (frontend için)
 export const getPublishedBlogs = async () => {
@@ -125,11 +122,11 @@ export const getPublishedBlogs = async () => {
       .from('blogs')
       .select('*')
       .eq('is_published', true)
-      .order('created_at', { ascending: false })
+      .order('created_at', { ascending: false });
 
-    if (error) throw error
+    if (error) throw error;
     // Frontend için alan adlarını dönüştür
-    return data.map(blog => ({
+    return data.map((blog) => ({
       id: blog.id,
       title: blog.title,
       content: blog.content,
@@ -137,13 +134,13 @@ export const getPublishedBlogs = async () => {
       imageUrl: blog.image_url,
       isPublished: blog.is_published,
       createdAt: blog.created_at,
-      updatedAt: blog.updated_at
-    }))
+      updatedAt: blog.updated_at,
+    }));
   } catch (error) {
-    console.error('Yayınlanmış blog verileri alınırken hata oluştu:', error)
-    throw error
+    console.error('Yayınlanmış blog verileri alınırken hata oluştu:', error);
+    throw error;
   }
-}
+};
 
 // Service objesi
 export const blogService = {
@@ -152,5 +149,5 @@ export const blogService = {
   create: createBlog,
   update: updateBlog,
   delete: deleteBlog,
-  getPublished: getPublishedBlogs
+  getPublished: getPublishedBlogs,
 };

@@ -14,8 +14,10 @@ export const storageService = {
       throw new Error('Yüklenecek dosya seçilmedi.');
     }
 
-    console.log(`Orijinal dosya boyutu: ${(file.size / 1024 / 1024).toFixed(2)} MB`);
-    
+    console.log(
+      `Orijinal dosya boyutu: ${(file.size / 1024 / 1024).toFixed(2)} MB`
+    );
+
     const options = {
       maxSizeMB: 1, // Maksimum 1MB
       maxWidthOrHeight: 1920, // Maksimum genişlik veya yükseklik
@@ -23,7 +25,9 @@ export const storageService = {
     };
 
     const compressedFile = await imageCompression(file, options);
-    console.log(`Sıkıştırılmış dosya boyutu: ${(compressedFile.size / 1024 / 1024).toFixed(2)} MB`);
+    console.log(
+      `Sıkıştırılmış dosya boyutu: ${(compressedFile.size / 1024 / 1024).toFixed(2)} MB`
+    );
 
     const fileExt = compressedFile.name.split('.').pop();
     const fileName = `${Date.now()}.${fileExt}`;
@@ -38,14 +42,14 @@ export const storageService = {
       throw uploadError;
     }
 
-    const { data: { publicUrl } } = supabase.storage
-      .from(BUCKET_NAME)
-      .getPublicUrl(filePath);
+    const {
+      data: { publicUrl },
+    } = supabase.storage.from(BUCKET_NAME).getPublicUrl(filePath);
 
     if (!publicUrl) {
       throw new Error('Dosya yüklendi ancak genel URL alınamadı.');
     }
-    
+
     return publicUrl;
   },
 
@@ -56,7 +60,7 @@ export const storageService = {
    */
   async deleteFile(fileUrl) {
     if (!fileUrl) return;
-    
+
     try {
       const filePath = new URL(fileUrl).pathname.split(`/${BUCKET_NAME}/`)[1];
       if (!filePath) return;
@@ -71,7 +75,7 @@ export const storageService = {
         // devam etmeli, storage'da artık dosya kalması kritik bir sorun değil.
       }
     } catch (e) {
-      console.error("Could not parse file URL to delete:", e);
+      console.error('Could not parse file URL to delete:', e);
     }
-  }
+  },
 };

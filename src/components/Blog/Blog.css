@@ -14,7 +14,9 @@
   border-radius: 1rem;
   overflow: hidden;
   box-shadow: var(--shadow-md);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
 }
@@ -116,11 +118,11 @@
     gap: 1.5rem;
     margin-top: 2rem;
   }
-  
+
   .blog-card__content {
     padding: 1rem;
   }
-  
+
   .blog-card__title {
     font-size: 1.1rem;
   }

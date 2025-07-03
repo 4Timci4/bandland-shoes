@@ -88,44 +88,44 @@
 
 /* Submenu Styles */
 .admin-sidebar__nav li.has-submenu > a {
-    justify-content: space-between;
+  justify-content: space-between;
 }
 
 .menu-item-content {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .submenu-arrow {
-    transition: transform 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 .admin-sidebar__nav li.has-submenu.open > a .submenu-arrow {
-    transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
 .submenu {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-in-out;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
 }
 
 .admin-sidebar__nav li.has-submenu.open > .submenu {
-    max-height: 200px; /* Adjust as needed */
-    padding-top: 0.5rem; /* Space between parent and child */
+  max-height: 200px; /* Adjust as needed */
+  padding-top: 0.5rem; /* Space between parent and child */
 }
 
 .submenu li a {
-    padding-left: 2.75rem; /* Indent submenu items more */
-    font-size: 0.9rem;
+  padding-left: 2.75rem; /* Indent submenu items more */
+  font-size: 0.9rem;
 }
 
 .submenu li.active-submenu a {
-    background-color: var(--accent-dark);
-    color: var(--secondary-color);
+  background-color: var(--accent-dark);
+  color: var(--secondary-color);
 }
 
 /* Responsive */
@@ -135,7 +135,7 @@
     height: auto;
     position: relative;
   }
-  
+
   .admin-sidebar__nav li a {
     padding: 1rem 1.5rem;
   }

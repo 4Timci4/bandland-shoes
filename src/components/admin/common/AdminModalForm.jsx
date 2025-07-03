@@ -3,7 +3,14 @@ import { FaSave, FaTimes, FaSpinner } from 'react-icons/fa';
 import { storageService } from '../../../services/storageService';
 import { productService } from '../../../services/productService'; // Product service'i import et
 
-function AdminModalForm({ isOpen, onClose, onSubmit, initialData, fields, title }) {
+function AdminModalForm({
+  isOpen,
+  onClose,
+  onSubmit,
+  initialData,
+  fields,
+  title,
+}) {
   const [formData, setFormData] = useState({});
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -29,28 +36,29 @@ function AdminModalForm({ isOpen, onClose, onSubmit, initialData, fields, title 
   const handleBaseSkuBlur = async (e) => {
     const baseSku = e.target.value;
     if (!baseSku) {
-      setFormData((prev) => ({ ...prev, name: "", description: "" }));
+      setFormData((prev) => ({ ...prev, name: '', description: '' }));
       setBaseProduct(null);
       return;
     }
 
     try {
-      const foundBaseProduct = await productService.getBaseProductBySku(baseSku);
+      const foundBaseProduct =
+        await productService.getBaseProductBySku(baseSku);
       if (foundBaseProduct) {
         setBaseProduct(foundBaseProduct);
         setFormData((prev) => ({
           ...prev,
           name: foundBaseProduct.name,
-          description: foundBaseProduct.description || "",
+          description: foundBaseProduct.description || '',
         }));
       } else {
-        alert("Bu SKU ile bir ana ürün bulunamadı.");
-        setFormData((prev) => ({ ...prev, name: "", description: "" }));
+        alert('Bu SKU ile bir ana ürün bulunamadı.');
+        setFormData((prev) => ({ ...prev, name: '', description: '' }));
         setBaseProduct(null);
       }
     } catch (error) {
-      console.error("Ana ürün getirilirken hata:", error);
-      alert("Ana ürün getirilirken bir hata oluştu.");
+      console.error('Ana ürün getirilirken hata:', error);
+      alert('Ana ürün getirilirken bir hata oluştu.');
     }
   };
 
@@ -76,11 +84,11 @@ function AdminModalForm({ isOpen, onClose, onSubmit, initialData, fields, title 
     e.preventDefault();
 
     if (!baseProduct && !initialData) {
-        alert("Lütfen geçerli bir Ana Ürün SKU'su girerek bir ana ürün seçin.");
-        return;
+      alert("Lütfen geçerli bir Ana Ürün SKU'su girerek bir ana ürün seçin.");
+      return;
     }
 
-    const imageField = fields.find(f => f.name === 'image_url');
+    const imageField = fields.find((f) => f.name === 'image_url');
     if (!initialData && imageField?.required && !selectedFile) {
       alert('Lütfen bir resim dosyası seçin.');
       return;
@@ -88,10 +96,10 @@ function AdminModalForm({ isOpen, onClose, onSubmit, initialData, fields, title 
 
     setIsUploading(true);
     let finalData = { ...formData };
-    
+
     // Sadece yeni ürün eklerken base_product_id'yi ekle. Düzenlemede bu bilgi zaten vardır.
-    if(baseProduct && !initialData) {
-        finalData.base_product_id = baseProduct.id;
+    if (baseProduct && !initialData) {
+      finalData.base_product_id = baseProduct.id;
     }
 
     try {
@@ -99,10 +107,10 @@ function AdminModalForm({ isOpen, onClose, onSubmit, initialData, fields, title 
         const imageUrl = await storageService.uploadFile(selectedFile);
         finalData = { ...finalData, image_url: imageUrl };
       }
-      
+
       await onSubmit(finalData);
     } catch (error) {
-      console.error("Form submit error:", error);
+      console.error('Form submit error:', error);
     } finally {
       setIsUploading(false);
     }
@@ -153,7 +161,7 @@ function AdminModalForm({ isOpen, onClose, onSubmit, initialData, fields, title 
                   />
                   {preview && (
                     <div className="image-preview">
-                       <img src={preview} alt="Önizleme" />
+                      <img src={preview} alt="Önizleme" />
                     </div>
                   )}
                 </div>
@@ -165,8 +173,10 @@ function AdminModalForm({ isOpen, onClose, onSubmit, initialData, fields, title 
                   onChange={handleChange}
                   {...props}
                 >
-                  <option value="" disabled>Seçiniz...</option>
-                  {props.options.map(option => (
+                  <option value="" disabled>
+                    Seçiniz...
+                  </option>
+                  {props.options.map((option) => (
                     <option key={option.value} value={option.value}>
                       {option.label}
                     </option>
@@ -183,7 +193,9 @@ function AdminModalForm({ isOpen, onClose, onSubmit, initialData, fields, title 
                   {...props}
                 />
               )}
-              {props.description && <p className="form-group-description">{props.description}</p>}
+              {props.description && (
+                <p className="form-group-description">{props.description}</p>
+              )}
             </div>
           ))}
           <div className="form-actions">
@@ -194,9 +206,17 @@ function AdminModalForm({ isOpen, onClose, onSubmit, initialData, fields, title 
             >
               <FaTimes /> İptal
             </button>
-            <button type="submit" className="admin-btn admin-btn-primary" disabled={isUploading}>
+            <button
+              type="submit"
+              className="admin-btn admin-btn-primary"
+              disabled={isUploading}
+            >
               {isUploading ? <FaSpinner className="spinner" /> : <FaSave />}
-              {isUploading ? 'Yükleniyor...' : (initialData ? 'Güncelle' : 'Kaydet')}
+              {isUploading
+                ? 'Yükleniyor...'
+                : initialData
+                  ? 'Güncelle'
+                  : 'Kaydet'}
             </button>
           </div>
         </form>

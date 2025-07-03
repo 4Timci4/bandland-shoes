@@ -19,7 +19,9 @@ const Blog = () => {
       setBlogPosts(data.slice(0, 3));
       setError(null);
     } catch (err) {
-      setError('Blog verileri yüklenirken bir hata oluştu. Lütfen daha sonra tekrar deneyin.');
+      setError(
+        'Blog verileri yüklenirken bir hata oluştu. Lütfen daha sonra tekrar deneyin.'
+      );
       console.error('Blog yükleme hatası:', err);
       setBlogPosts([]); // Hata durumunda blog listesini boşalt
     } finally {
@@ -32,7 +34,7 @@ const Blog = () => {
     return date.toLocaleDateString('tr-TR', {
       year: 'numeric',
       month: 'long',
-      day: 'numeric'
+      day: 'numeric',
     });
   };
 
@@ -81,7 +83,7 @@ const Blog = () => {
           {blogPosts.map((post) => (
             <div key={post.id} className="blog-card">
               <div className="blog-card__image-container">
-                <img 
+                <img
                   src={post.imageUrl}
                   alt={post.title}
                   className="blog-card__image"
@@ -93,7 +95,9 @@ const Blog = () => {
                 <p className="blog-card__excerpt">
                   {truncateText(post.excerpt || post.content)}
                 </p>
-                <a href="#" className="blog-card__read-more">Devamını Oku</a>
+                <a href="#" className="blog-card__read-more">
+                  Devamını Oku
+                </a>
               </div>
             </div>
           ))}

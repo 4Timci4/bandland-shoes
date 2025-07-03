@@ -5,19 +5,17 @@ const from = 'contact_submissions';
 export const contactService = {
   // === VİTRİN İÇİN ===
   async submitMessage(formData) {
-    const { data, error } = await supabase
-      .from(from)
-      .insert([
-        {
-          name: formData.name,
-          email: formData.email,
-          subject: formData.subject,
-          message: formData.message
-        }
-      ]);
-      
+    const { data, error } = await supabase.from(from).insert([
+      {
+        name: formData.name,
+        email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+      },
+    ]);
+
     if (error) {
-      console.error("Error submitting contact form:", error);
+      console.error('Error submitting contact form:', error);
       throw error;
     }
     return data;
@@ -51,15 +49,12 @@ export const contactService = {
   },
 
   async deleteSubmission(id) {
-    const { data, error } = await supabase
-      .from(from)
-      .delete()
-      .eq('id', id);
+    const { data, error } = await supabase.from(from).delete().eq('id', id);
 
     if (error) {
       console.error('Error deleting submission:', error);
       throw error;
     }
     return data;
-  }
+  },
 };

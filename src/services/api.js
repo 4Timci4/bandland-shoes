@@ -4,11 +4,11 @@ const API_URL = '/api';
 export const fetchData = async (endpoint) => {
   try {
     const response = await fetch(`${API_URL}/${endpoint}`);
-    
+
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    
+
     const data = await response.json();
     return data;
   } catch (error) {
@@ -26,11 +26,11 @@ export const postData = async (endpoint, body) => {
       },
       body: JSON.stringify(body),
     });
-    
+
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    
+
     const data = await response.json();
     return data;
   } catch (error) {
@@ -48,11 +48,11 @@ export const updateData = async (endpoint, id, body) => {
       },
       body: JSON.stringify(body),
     });
-    
+
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    
+
     const data = await response.json();
     return data;
   } catch (error) {
@@ -66,11 +66,11 @@ export const deleteData = async (endpoint, id) => {
     const response = await fetch(`${API_URL}/${endpoint}/${id}`, {
       method: 'DELETE',
     });
-    
+
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    
+
     const data = await response.json();
     return data;
   } catch (error) {

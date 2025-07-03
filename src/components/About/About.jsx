@@ -8,8 +8,13 @@ const About = () => {
       <div className="container">
         <div className="about__content">
           <h2>Hakkımızda</h2>
-          <p>Badland Shoes, kalite ve şıklığı bir araya getiren ayakkabı markasıdır.</p>
-          <Link to="/about" className="btn btn-primary">Daha Fazla Bilgi</Link>
+          <p>
+            Badland Shoes, kalite ve şıklığı bir araya getiren ayakkabı
+            markasıdır.
+          </p>
+          <Link to="/about" className="btn btn-primary">
+            Daha Fazla Bilgi
+          </Link>
         </div>
       </div>
     </section>
